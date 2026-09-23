@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prueba de Sociales: Yumbeñidad</title>
+<style>
+  :root{--verde:#1f7a3d;--verde-osc:#125226;--amarillo:#f4b400;--gris:#4a4f55;--rojo:#c0392b;--bg:#f4f7f2;--card:#ffffff;--text:#1c2a20;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+  html{scroll-padding-top:env(safe-area-inset-top,0px)} *{box-sizing:border-box}
+  body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--verde) 0%,var(--verde) 140px,var(--bg) 140px);color:var(--text)}
+  .wrap{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+  header{text-align:center;color:#fff;padding:18px 10px 8px} header h1{margin:0 0 4px;font-size:1.35rem;letter-spacing:.3px} header p{margin:0;font-size:.85rem;opacity:.95}
+  .badge{display:inline-block;background:var(--amarillo);color:var(--verde-osc);font-weight:700;font-size:.7rem;padding:3px 10px;border-radius:999px;margin-bottom:6px}
+  .card{background:var(--card);border-radius:16px;padding:20px;margin-top:18px;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+  .art{display:flex;justify-content:center;margin:-4px 0 10px}
+  label{display:block;font-weight:600;margin:14px 0 6px;font-size:.92rem}
+  input[type=text]{width:100%;padding:11px 12px;border-radius:10px;border:1.5px solid #cfd8ce;font-size:1rem;background:transparent;color:var(--text)}
+  .opciones-grado{display:flex;gap:10px;margin-top:4px}.opciones-grado button{flex:1;padding:12px;border-radius:10px;border:1.5px solid #cfd8ce;background:transparent;color:var(--text);font-size:1rem;font-weight:600;cursor:pointer}.opciones-grado button.sel{background:var(--verde);border-color:var(--verde);color:#fff}
+  .btn{display:block;width:100%;margin-top:20px;padding:13px;border:none;border-radius:12px;background:var(--verde);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}.btn:disabled{background:#9aa79a;cursor:not-allowed}
+  .progreso{height:8px;background:#e3e9e0;border-radius:999px;overflow:hidden;margin-bottom:14px}.progreso>div{height:100%;background:var(--amarillo);transition:width .25s}
+  .qnum{font-size:.8rem;font-weight:700;color:var(--verde);text-transform:uppercase;letter-spacing:.5px}.pregunta{font-size:1.08rem;font-weight:700;margin:8px 0 14px;line-height:1.35}
+  .opcion{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:10px;border-radius:10px;border:1.5px solid #cfd8ce;background:transparent;color:var(--text);font-size:.98rem;cursor:pointer}.opcion.sel{border-color:var(--verde);background:rgba(31,122,61,.12)}
+  .resultado-score{text-align:center;font-size:2.6rem;font-weight:800;color:var(--verde);margin:6px 0 2px}.resultado-msg{text-align:center;font-weight:700;margin-bottom:10px;font-size:1.05rem}
+  .datos-final{background:rgba(31,122,61,.08);border-radius:12px;padding:12px 14px;font-size:.9rem;margin-bottom:16px}.datos-final div{margin:3px 0}
+  .hint{font-size:.78rem;color:#6b756a;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header><span class="badge">Institución Educativa José María Córdoba</span><h1>Prueba de Sociales — Yumbeñidad</h1><p>Docente: Lic. Luis Fernando Posso</p></header>
+
+<div class="card" id="screen-intro">
+<div class="art"><svg width="180" height="90" viewBox="0 0 180 90">
+<rect x="0" y="60" width="180" height="30" fill="#1f7a3d"/><rect x="0" y="55" width="180" height="8" fill="#f4b400"/><circle cx="150" cy="22" r="14" fill="#f4b400"/>
+<rect x="30" y="35" width="10" height="30" fill="#4a4f55"/><rect x="50" y="25" width="10" height="40" fill="#4a4f55"/><rect x="70" y="40" width="10" height="25" fill="#4a4f55"/>
+<path d="M35 35 q3 -10 -2 -18" stroke="#c9cdd0" stroke-width="4" fill="none" opacity=".8"/><path d="M55 25 q3 -10 -2 -18" stroke="#c9cdd0" stroke-width="4" fill="none" opacity=".8"/><path d="M75 40 q3 -10 -2 -18" stroke="#c9cdd0" stroke-width="4" fill="none" opacity=".8"/><path d="M0 65 q20 -14 40 0 t40 0 t40 0 t40 0" stroke="#125226" stroke-width="5" fill="none"/>
+</svg></div>
+<p style="text-align:center;margin-top:0;">¡Bienvenido(a)! Antes de comenzar, cuéntanos quién eres.</p>
+<label for="nombre">Nombre *</label><input type="text" id="nombre" placeholder="Escribe tu nombre">
+<label for="apellido">Apellido *</label><input type="text" id="apellido" placeholder="Escribe tu apellido">
+<label>Grado *</label><div class="opciones-grado"><button type="button" class="grado-btn" data-grado="5-1">5-1</button><button type="button" class="grado-btn" data-grado="5-2">5-2</button></div>
+<button class="btn" id="btn-empezar" disabled>Comenzar la prueba</button><p class="hint">* Campos obligatorios</p>
+</div>
+
+<div class="card" id="screen-quiz" style="display:none;"><div class="progreso"><div id="barra"></div></div><div class="qnum" id="qnum"></div><div class="pregunta" id="preg"></div><div id="opciones"></div><button class="btn" id="btn-siguiente" disabled>Siguiente</button></div>
+
+<div class="card" id="screen-result" style="display:none;">
+<div class="art"><svg width="120" height="120" viewBox="0 0 120 120"><circle cx="60" cy="60" r="55" fill="#f4b400"/><circle cx="60" cy="60" r="55" fill="none" stroke="#1f7a3d" stroke-width="6"/><text x="60" y="72" font-size="46" text-anchor="middle" fill="#125226">🏆</text></svg></div>
+<div class="resultado-score" id="score-final"></div><div class="resultado-msg" id="msg-final"></div>
+<div class="datos-final"><div><strong>Nombre:</strong> <span id="r-nombre"></span></div><div><strong>Grado:</strong> <span id="r-grado"></span></div><div><strong>Fecha y hora:</strong> <span id="r-hora"></span></div></div>
+<p style="text-align:center;font-weight:700;">📸 Toma una captura de pantalla de este resultado y envíala a tu docente.</p>
+</div>
+</div>
+
+<script>
+const preguntas=[
+{texto:"¿Qué representa el año 1536 en el escudo de Yumbo?",opciones:["La creación del municipio de Yumbo.","La llegada de los españoles a la región y el inicio de un nuevo período histórico.","La construcción de las primeras industrias.","La creación de la bandera de Yumbo."],correcta:1},
+{texto:"¿Qué representa el año 1864 en el escudo de Yumbo?",opciones:["La fundación de Cali.","La llegada de los primeros habitantes indígenas.","El año en que Yumbo fue elevado a la categoría de municipio.","La construcción del primer parque de Yumbo."],correcta:2},
+{texto:"¿En qué departamento de Colombia se encuentra el municipio de Yumbo?",opciones:["Cauca","Valle del Cauca","Risaralda","Quindío"],correcta:1},
+{texto:"¿En qué posición geográfica se encuentra Yumbo con respecto a Cali?",opciones:["Al norte de Cali","Al sur de Cali","Al oriente de Cali","Al occidente de Cali"],correcta:0},
+{texto:"¿Qué representa el color verde de la bandera de Yumbo?",opciones:["La industria del municipio","La belleza y fertilidad de la tierra","Los ríos del municipio","La historia de sus alcaldes"],correcta:1},
+{texto:"¿Qué representa la actividad industrial en el escudo de Yumbo?",opciones:["Las cañas de azúcar","Las chimeneas","El libro","El sol naciente"],correcta:1},
+{texto:"¿Qué elementos del escudo representan el conocimiento y que la historia continúa escribiéndose?",opciones:["Las montañas y los ríos","Las chimeneas y las cañas","El libro, el tintero y la pluma","El sol y las estrellas"],correcta:2},
+{texto:"¿Cuál de estos personajes aparece representado en el escudo de Yumbo?",opciones:["Balto Puente","Simón Bolívar","Jorge Isaacs","Sebastián de Belalcázar"],correcta:3},
+{texto:"¿Cómo se denomina a una persona nacida en Yumbo?",opciones:["Vallecaucano","Yumbeño o yumbeña","Yumbano","Caleño"],correcta:1},
+{texto:"¿Quién es el alcalde de Yumbo para el período 2024-2027?",opciones:["Alejandro Eder","Edgar Alexander Ruiz García","Jorge Iván Ospina","John Jairo Santamaría"],correcta:1}
+];
+
+let nombre="",apellido="",grado="",actual=0,seleccion=null,respuestas=[],gradoSel=null;
+const btnEmpezar=document.getElementById('btn-empezar'),nombreInput=document.getElementById('nombre'),apellidoInput=document.getElementById('apellido');
+
+document.querySelectorAll('.grado-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.grado-btn').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');gradoSel=b.dataset.grado;validarIntro();}));
+nombreInput.addEventListener('input',validarIntro);apellidoInput.addEventListener('input',validarIntro);
+function validarIntro(){btnEmpezar.disabled=!(nombreInput.value.trim().length>1&&apellidoInput.value.trim().length>1&&gradoSel);}
+btnEmpezar.addEventListener('click',()=>{nombre=nombreInput.value.trim();apellido=apellidoInput.value.trim();grado=gradoSel;document.getElementById('screen-intro').style.display='none';document.getElementById('screen-quiz').style.display='block';mostrarPregunta();});
+
+function mostrarPregunta(){
+seleccion=null;const p=preguntas[actual];document.getElementById('barra').style.width=((actual)/preguntas.length*100)+'%';document.getElementById('qnum').textContent='Pregunta '+(actual+1)+' de '+preguntas.length;document.getElementById('preg').textContent=p.texto;
+const cont=document.getElementById('opciones');cont.innerHTML='';
+p.opciones.forEach((op,i)=>{const b=document.createElement('button');b.className='opcion';b.textContent=String.fromCharCode(65+i)+'. '+op;b.addEventListener('click',()=>{seleccion=i;document.querySelectorAll('.opcion').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');document.getElementById('btn-siguiente').disabled=false;});cont.appendChild(b);});
+document.getElementById('btn-siguiente').disabled=true;document.getElementById('btn-siguiente').textContent=(actual===preguntas.length-1)?'Finalizar':'Siguiente';
+}
+document.getElementById('btn-siguiente').addEventListener('click',()=>{respuestas.push(seleccion);actual++;if(actual<preguntas.length)mostrarPregunta();else mostrarResultado();});
+
+function mostrarResultado(){
+document.getElementById('screen-quiz').style.display='none';document.getElementById('screen-result').style.display='block';
+let correctas=0;respuestas.forEach((r,i)=>{if(r===preguntas[i].correcta)correctas++;});
+document.getElementById('score-final').textContent=correctas+' / '+preguntas.length;
+let msg;if(correctas>=9)msg='¡Excelente! Eres todo un yumbeño(a) de corazón 🌿';else if(correctas>=7)msg='¡Muy bien! Conoces bastante sobre Yumbo 👏';else if(correctas>=5)msg='Vas bien, pero puedes repasar un poco más 📚';else msg='Sigue aprendiendo sobre la historia de Yumbo 💪';
+document.getElementById('msg-final').textContent=msg;
+document.getElementById('r-nombre').textContent=nombre+' '+apellido;document.getElementById('r-grado').textContent=grado;document.getElementById('r-hora').textContent=new Date().toLocaleString('es-CO');
+}
+</script>
+</body>
+</html>
